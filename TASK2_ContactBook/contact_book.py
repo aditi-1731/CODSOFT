@@ -6,59 +6,109 @@ def is_valid_phone(phone):
 def load_contacts():
     try:
         contacts = {}
+
         with open(FILE_NAME, "r") as file:
             for line in file:
-                name, phone = line.strip().split(",")
-                contacts[name] = phone
+                name, phone, email, address = line.strip().split(",")
+
+                contacts[name] = {
+                    "phone": phone,
+                    "email": email,
+                    "address": address
+                }
+
         return contacts
     except FileNotFoundError:
         return {}
 
 def save_contacts(contacts):
     with open(FILE_NAME, "w") as file:
-        for name, phone in contacts.items():
-            file.write(f"{name},{phone}\n")
+        for name, details in contacts.items():
+            file.write(
+                f"{name},{details['phone']},{details['email']},{details['address']}\n"
+            )
 
 def display_contacts(contacts):
     if not contacts:
         print("No contacts found.")
-    else:
-        print("\n----- CONTACT LIST -----\n")
-        for name, phone in contacts.items():
-            print(f"Name : {name}")
-            print(f"Phone: {phone}")
-            print("-" * 25)
+        return
+
+    print("\n----- CONTACT LIST -----\n")
+
+    print(f"{'Name':<20} {'Phone':<15}")
+    print("-" * 35)
+
+    for name, details in contacts.items():
+        print(f"{name:<20} {details['phone']:<15}")
 
 def search_contact(contacts):
-    name = input("Enter contact name to search: ").strip()
 
-    if name in contacts:
-        print("\nContact Found")
-        print(f"Name : {name}")
-        print(f"Phone: {contacts[name]}")
-    else:
+    print("\n1. Search by Name")
+    print("2. Search by Phone Number")
+
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+
+        name = input("Enter name: ").strip()
+
+        if name in contacts:
+
+            details = contacts[name]
+
+            print("\nContact Found")
+            print(f"Name    : {name}")
+            print(f"Phone   : {details['phone']}")
+            print(f"Email   : {details['email']}")
+            print(f"Address : {details['address']}")
+
+        else:
+            print("Contact not found.")
+
+    elif choice == "2":
+
+        phone = input("Enter phone number: ").strip()
+
+        for name, details in contacts.items():
+
+            if details["phone"] == phone:
+
+                print("\nContact Found")
+                print(f"Name    : {name}")
+                print(f"Phone   : {details['phone']}")
+                print(f"Email   : {details['email']}")
+                print(f"Address : {details['address']}")
+                return
+
         print("Contact not found.")
+
+    else:
+        print("Invalid choice.")
 
 def update_contact(contacts):
     name = input("Enter contact name to update: ").strip()
 
-    if name in contacts:
-        new_phone = input("Enter new phone number: ").strip()
-
-        if not new_phone:
-            print("Phone number cannot be empty.")
-            return
-        
-        if not is_valid_phone(new_phone):
-            print("Phone number must contain exactly 10 digits.")
-            return
-        contacts[name] = new_phone
-        save_contacts(contacts)
-
-        print("Contact updated successfully!")
-
-    else:
+    if name not in contacts:
         print("Contact not found.")
+        return
+
+    phone = input("Enter new phone number: ").strip()
+    email = input("Enter new email: ").strip()
+    address = input("Enter new address: ").strip()
+
+    if not is_valid_phone(phone):
+        print("Phone number must contain exactly 10 digits.")
+        return
+
+    contacts[name] = {
+        "phone": phone,
+        "email": email,
+        "address": address
+    }
+
+    save_contacts(contacts)
+    print("Contact updated successfully!")
+    
 
 def delete_contact(contacts):
     name = input("Enter contact name to delete: ").strip()
@@ -92,6 +142,8 @@ while True:
     if choice == "1":
         name = input("Enter Name: ").strip()
         phone = input("Enter Phone Number: ").strip()
+        email = input("Enter Email: ").strip()
+        address = input("Enter Address: ").strip()
 
         if not is_valid_phone(phone):
             print("Phone number must contain exactly 10 digits.")
@@ -101,7 +153,12 @@ while True:
             print("Name and Phone Number cannot be empty!")
             continue
 
-        contacts[name] = phone
+        contacts[name] = {
+            "phone": phone,
+            "email": email,
+            "address": address
+        }
+
         save_contacts(contacts)
         print("Contact added successfully!")
 
