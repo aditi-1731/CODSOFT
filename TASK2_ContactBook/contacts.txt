@@ -1,3 +1,3 @@
-Aditi,9876543210,aditi@gmail.com,ghaziabad
-Saubhagya,1234567890,saubhagya@gmail.com,gorakhpur
-ASDT,5678904321,asdt1731@gmail.com,lucknow 
+Aditi,9876543210,aditi@gmail.com,Ghaziabad
+Saubhagya,1234567890,saubhagya@gmail.com,Gorakhpur
+ASDT,5678904321,asdt1731@gmail.com,Lucknow 
