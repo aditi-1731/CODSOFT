@@ -10,9 +10,9 @@ This project was developed as part of the CodSoft Python Programming Internship.
 
 ## Features
 
-* Add new contacts
+* Add new contacts with Name, Phone Number, Email, and Address
 * View all saved contacts
-* Search contacts by name
+* Search contacts by Name or Phone Number
 * Update existing contact details
 * Delete contacts
 * Validate phone numbers
@@ -25,7 +25,7 @@ This project was developed as part of the CodSoft Python Programming Internship.
 ## Technologies Used
 
 * Python 3
-* Dictionaries
+* Dictionaries and Nested Dictionaries
 * Functions
 * File Handling
 * Exception Handling
@@ -90,12 +90,13 @@ Enter your choice:
 
 Through this project, the following Python concepts were implemented:
 
-* Dictionary operations
+* Dictionary and Nested Dictionary operations
 * CRUD (Create, Read, Update, Delete) functionality
 * Data persistence using text files
 * User input validation
 * Modular programming using functions
 * Exception handling
+* Search functionality implementation
 
 ---
 
