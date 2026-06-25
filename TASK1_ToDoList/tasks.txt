@@ -1,3 +1,3 @@
 [ ] Complete Codsoft internship
-[X] do DSA question
+[X] do DSA questions
 [ ] study for upcoming exams
