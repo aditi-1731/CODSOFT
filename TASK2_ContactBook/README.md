@@ -102,5 +102,3 @@ Through this project, the following Python concepts were implemented:
 ## Author
 
 Aditi Tripathi
-
-Python Programming Intern – CodSoft
