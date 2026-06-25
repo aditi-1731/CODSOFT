@@ -1,4 +1,3 @@
-[X] dsa question
-[ ] Codsoft task
-[ ] sleep cycle fix 
-[ ] drink 6 glasses of water
+[ ] Complete Codsoft internship
+[X] do DSA question
+[ ] study for upcoming exams

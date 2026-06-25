@@ -23,15 +23,50 @@ def display_tasks(tasks):
         for i, task in enumerate(tasks, start=1):
             print(f"{i}. {task}")
 
+def update_task(tasks):
+    if not tasks:
+        print("No tasks available.")
+        return
+
+    display_tasks(tasks)
+
+    try:
+        task_num = int(input("Enter task number to update: "))
+
+        if 1 <= task_num <= len(tasks):
+
+            new_task = input("Enter updated task: ").strip()
+
+            if not new_task:
+                print("Task cannot be empty.")
+                return
+
+            if tasks[task_num - 1].startswith("[X]"):
+                tasks[task_num - 1] = "[X] " + new_task
+            else:
+                tasks[task_num - 1] = "[ ] " + new_task
+
+            save_tasks(tasks)
+
+            print("Task updated successfully!")
+
+        else:
+            print("Invalid task number.")
+
+    except ValueError:
+        print("Please enter a valid number.")
+
 def show_statistics(tasks):
     total = len(tasks)
     completed = sum(1 for task in tasks if task.startswith("[X]"))
     pending = total - completed
-
+    if total > 0:
+        percentage = (completed / total) * 100
     print("\n----- STATISTICS -----")
     print(f"Total Tasks     : {total}")
     print(f"Completed Tasks : {completed}")
     print(f"Pending Tasks   : {pending}")
+    print(f"Completion Rate : {percentage:.2f}%")
 
 tasks = load_tasks()
 
@@ -41,8 +76,9 @@ while True:
     print("2. View Tasks")
     print("3. Mark Task Completed")
     print("4. Delete Task")
-    print("5. View Statistics")
-    print("6. Exit")
+    print("5. Update Task")
+    print("6. View Statistics")
+    print("7. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -52,6 +88,9 @@ while True:
             print("Task cannot be empty!")
             continue
         tasks.append("[ ] " + task)
+        if "[ ] " + task in tasks:
+            print("Task already exists!")
+            continue
         save_tasks(tasks)
         print("Task added successfully!")
 
@@ -108,10 +147,14 @@ while True:
 
             except ValueError:
                 print("Please enter a valid number.")
+    
     elif choice=="5":
+        update_task(tasks)
+        
+    elif choice=="6":
         show_statistics(tasks)
 
-    elif choice=="6":
+    elif choice=="7":
         print("Goodbye!")
         break
     
